@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f8f2e8">
+    <meta name="theme-color" content="#001638">
     <meta
       name="description"
       content="Afterglow is a private, native iOS EPUB reading app built for calm, focused reading."
@@ -16,6 +16,21 @@
     <meta property="og:type" content="website">
     <title>Afterglow - EPUB reading for iOS</title>
     <link rel="preconnect" href="https://apps.apple.com">
+    <style>
+      :root {
+        --shell: color-mix(in srgb, #001c4a 78%, #000 22%);
+        --site-ink: #fbf7ef;
+        --site-muted: rgb(251 247 239 / 72%);
+        --chrome-bg: rgb(31 27 39 / 46%);
+        --chrome-border: rgb(255 255 255 / 18%);
+        --chrome-shadow: rgb(0 0 0 / 28%);
+      }
+
+      html,
+      body {
+        background: var(--shell);
+      }
+    </style>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -26,18 +41,16 @@
         </a>
         <a class="header-download" href="#" aria-label="Download Afterglow on the App Store">
           <span aria-hidden="true"></span>
-          <span>Download</span>
+          <span>Download free</span>
         </a>
       </header>
 
       <main>
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-copy">
-            <p class="eyebrow">Native iOS EPUB reader</p>
-            <h1 id="hero-title">Books with atmosphere.</h1>
+            <h1 id="hero-title">Read books with a mood.</h1>
             <p class="hero-deck">
-              Afterglow is a private Swift-native EPUB reading app with warm themes,
-              careful typography, and a reading view that stays out of your way.
+              Afterglow is a beautiful iOS reading app with themes that match the mood of the cover art.
             </p>
             <div class="download-panel" aria-label="Download options">
               <div class="download-actions">

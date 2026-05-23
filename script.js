@@ -56,46 +56,122 @@ const siteThemes = {
 
 let activeIndex = 0;
 let cycleTimer;
+let currentCoverState = {
+  color: books[0].coverColor,
+  image: books[0].coverImage
+};
+let currentReaderInk = books[0].textColor;
 
-function renderCharacters(text) {
+function hexToRgb(hexColor) {
+  const hex = hexColor.replace("#", "");
+  const value = Number.parseInt(hex.length === 3
+    ? hex.split("").map((character) => character + character).join("")
+    : hex, 16);
+
+  return {
+    r: (value >> 16) & 255,
+    g: (value >> 8) & 255,
+    b: value & 255
+  };
+}
+
+function mixColors(firstColor, secondColor, firstWeight) {
+  const first = hexToRgb(firstColor);
+  const second = hexToRgb(secondColor);
+  const secondWeight = 1 - firstWeight;
+
+  return {
+    r: Math.round(first.r * firstWeight + second.r * secondWeight),
+    g: Math.round(first.g * firstWeight + second.g * secondWeight),
+    b: Math.round(first.b * firstWeight + second.b * secondWeight)
+  };
+}
+
+function rgbString(color, alpha = 1) {
+  return `rgb(${color.r} ${color.g} ${color.b} / ${alpha})`;
+}
+
+function renderCharacters(text, shouldAnimate) {
+  if (shouldAnimate && readerText.textContent.trim()) {
+    const previousText = readerText.cloneNode(true);
+    previousText.removeAttribute("data-reader-text");
+    previousText.classList.remove("is-entering");
+    previousText.classList.add("is-leaving");
+    previousText.style.color = currentReaderInk;
+    readerText.before(previousText);
+    previousText.addEventListener("animationend", () => previousText.remove(), { once: true });
+  }
+
+  readerText.classList.remove("is-entering");
   readerText.textContent = "";
 
   const fragment = document.createDocumentFragment();
-  let characterIndex = 0;
   const words = text.split(" ");
 
   words.forEach((word, wordIndex) => {
     const wordSpan = document.createElement("span");
     wordSpan.className = "word";
-
-    [...word].forEach((character) => {
-      const span = document.createElement("span");
-      span.className = "char";
-      span.textContent = character;
-      span.style.animationDelay = `${Math.min(characterIndex * 4, 520)}ms`;
-      wordSpan.appendChild(span);
-      characterIndex += 1;
-    });
+    wordSpan.textContent = word;
+    wordSpan.style.animationDelay = `${wordIndex * 10}ms`;
 
     fragment.appendChild(wordSpan);
 
     if (wordIndex < words.length - 1) {
       fragment.append(" ");
-      characterIndex += 1;
     }
   });
 
   readerText.appendChild(fragment);
+
+  if (shouldAnimate) {
+    void readerText.offsetWidth;
+    readerText.classList.add("is-entering");
+  }
 }
 
-function renderBook(index) {
+function setCoverArtwork(element, coverState) {
+  element.style.setProperty("--cover-bg", coverState.color);
+  element.style.setProperty("--cover-image", coverState.image ? `url("${coverState.image}")` : "none");
+}
+
+function renderCover(book, shouldAnimate) {
+  const nextCoverState = {
+    color: book.coverColor,
+    image: book.coverImage
+  };
+
+  cover.classList.remove("is-entering");
+
+  if (shouldAnimate) {
+    const previousCover = cover.cloneNode(true);
+    previousCover.removeAttribute("data-cover");
+    previousCover.classList.remove("is-entering");
+    previousCover.classList.add("is-leaving");
+    setCoverArtwork(previousCover, currentCoverState);
+    cover.before(previousCover);
+    previousCover.addEventListener("animationend", () => previousCover.remove(), { once: true });
+  }
+
+  setCoverArtwork(cover, nextCoverState);
+  currentCoverState = nextCoverState;
+
+  if (shouldAnimate) {
+    void cover.offsetWidth;
+    cover.classList.add("is-entering");
+  }
+}
+
+function renderBook(index, options = {}) {
   const book = books[index];
+  const shouldAnimate = options.animate !== false;
   const theme = siteThemes[book.mode] || siteThemes.light;
   const pageBackground = `color-mix(in srgb, ${book.backgroundColor} 78%, #000 22%)`;
-  const deviceGlow = `color-mix(in srgb, ${book.backgroundColor} 62%, #fff 38%)`;
+  const deviceGlow = mixColors(book.textColor, book.backgroundColor, 0.68);
 
   root.style.setProperty("--shell", pageBackground);
-  root.style.setProperty("--device-glow", deviceGlow);
+  root.style.setProperty("--device-glow", rgbString(deviceGlow));
+  root.style.setProperty("--device-glow-soft", rgbString(deviceGlow, 0.22));
+  root.style.setProperty("--device-glow-core", rgbString(deviceGlow, 0.32));
   root.style.setProperty("--site-ink", theme.siteInk);
   root.style.setProperty("--site-muted", theme.siteMuted);
   root.style.setProperty("--site-accent", theme.siteAccent);
@@ -105,14 +181,10 @@ function renderBook(index) {
   root.style.setProperty("--brand-mark-bg", theme.brandMarkBg);
   phone.style.setProperty("--reader-bg", book.backgroundColor);
   phone.style.setProperty("--reader-ink", book.textColor);
-  cover.style.setProperty("--cover-bg", book.coverColor);
-  cover.style.setProperty("--cover-image", book.coverImage ? `url("${book.coverImage}")` : "none");
 
-  cover.classList.remove("is-changing");
-  void cover.offsetWidth;
-  cover.classList.add("is-changing");
-
-  renderCharacters(book.content);
+  renderCover(book, shouldAnimate);
+  renderCharacters(book.content, shouldAnimate);
+  currentReaderInk = book.textColor;
 }
 
 function scheduleCycle() {
@@ -122,7 +194,7 @@ function scheduleCycle() {
   }, 5600);
 }
 
-renderBook(activeIndex);
+renderBook(activeIndex, { animate: false });
 
 if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   scheduleCycle();
