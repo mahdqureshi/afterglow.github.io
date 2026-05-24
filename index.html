@@ -19,6 +19,8 @@
     <style>
       :root {
         --shell: color-mix(in srgb, #001c4a 78%, #000 22%);
+        --page-fade-start: 760px;
+        --page-fade-end: 1120px;
         --site-ink: #fbf7ef;
         --site-muted: rgb(251 247 239 / 72%);
         --chrome-bg: rgb(31 27 39 / 46%);
@@ -28,7 +30,7 @@
 
       html,
       body {
-        background: var(--shell);
+        background: #000;
       }
     </style>
     <link rel="stylesheet" href="styles.css">
@@ -101,13 +103,7 @@
         </section>
 
         <section class="qr-section" aria-label="QR code">
-          <div class="qr-placeholder" aria-label="QR code placeholder">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <strong>QR</strong>
-          </div>
+          <img class="qr-code" src="qr-code.svg" alt="QR code to download Afterglow">
         </section>
       </main>
 
