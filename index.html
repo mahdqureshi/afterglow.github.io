@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#001638">
+    <meta name="theme-color" content="#000000">
     <meta
       name="description"
       content="Afterglow is a private, native iOS EPUB reading app built for calm, focused reading."
@@ -14,105 +14,27 @@
       content="A private, native iOS EPUB reader for calm, focused reading."
     >
     <meta property="og:type" content="website">
-    <title>Afterglow - EPUB reading for iOS</title>
+    <title>Afterglow - Download</title>
     <link rel="preconnect" href="https://apps.apple.com">
-    <style>
-      :root {
-        --shell: color-mix(in srgb, #001c4a 78%, #000 22%);
-        --page-fade-start: 760px;
-        --page-fade-end: 1120px;
-        --site-ink: #fbf7ef;
-        --site-muted: rgb(251 247 239 / 72%);
-        --chrome-bg: rgb(31 27 39 / 46%);
-        --chrome-border: rgb(255 255 255 / 18%);
-        --chrome-shadow: rgb(0 0 0 / 28%);
-      }
-
-      html,
-      body {
-        background: #000;
-      }
-    </style>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <div class="page-shell">
-      <header class="site-header" aria-label="Primary navigation">
-        <a class="brand" href="/" aria-label="Afterglow home">
-          <img class="brand-logo" src="header-logo.svg" alt="" aria-hidden="true">
-        </a>
-        <a class="header-download" href="#" aria-label="Download Afterglow on the App Store">
-          <span aria-hidden="true"></span>
-          <span>Download free</span>
-        </a>
-      </header>
-
-      <main>
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-copy">
-            <h1 id="hero-title">Read books with a mood.</h1>
-            <p class="hero-deck">
-              Afterglow is a beautiful iOS reading app with themes that match the mood of the cover art.
-            </p>
-            <div class="download-panel" aria-label="Download options">
-              <div class="download-actions">
-                <a class="app-store-button" href="#" aria-label="Download Afterglow on the App Store">
-                  <span class="apple" aria-hidden="true"></span>
-                  <span>
-                    <small>Download on the</small>
-                    App Store
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="device-stage" aria-label="Animated Afterglow reading preview">
-            <div class="phone-shadow" aria-hidden="true"></div>
-            <div class="phone" data-phone>
-              <div class="phone-glass">
-                <article class="reader-text" aria-live="polite" aria-atomic="true">
-                  <p data-reader-text></p>
-                </article>
-              </div>
-              <div class="book-cover" data-cover aria-hidden="true">
-                <div class="cover-shine"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="faq" aria-labelledby="faq-title">
-          <div class="faq-heading">
-            <h2 id="faq-title">FAQ</h2>
-          </div>
-          <div class="faq-list">
-            <details>
-              <summary>What formats does Afterglow support?</summary>
-              <p>Afterglow is focused on EPUB files, with a native reading view built for long-form books.</p>
-            </details>
-            <details>
-              <summary>Does Afterglow track what I read?</summary>
-              <p>No. Afterglow is designed around private local reading and keeps the experience quiet.</p>
-            </details>
-            <details>
-              <summary>Can I customize the reading view?</summary>
-              <p>Yes. The app includes warm themes, typography controls, and a reading layout that stays out of the way.</p>
-            </details>
-          </div>
-        </section>
-
-        <section class="qr-section" aria-label="QR code">
-          <img class="qr-code" src="qr-code.svg" alt="QR code to download Afterglow">
-        </section>
+  <body class="temp-site">
+    <div class="temp-shell">
+      <main class="temp-main" aria-label="Download Afterglow">
+        <div class="temp-app-lockup">
+          <div class="temp-icon-glow" aria-hidden="true"></div>
+          <img class="temp-app-icon" src="appicon.webp" alt="Afterglow app icon">
+          <a class="header-download temp-download" href="#" aria-label="Download Afterglow on the App Store">
+            <span aria-hidden="true"></span>
+            <span>Download free</span>
+          </a>
+        </div>
       </main>
 
-      <footer class="site-footer">
+      <footer class="site-footer temp-footer">
         <p>Afterglow for iOS</p>
         <a href="privacy.html">Privacy Policy</a>
       </footer>
     </div>
-
-    <script src="script.js"></script>
   </body>
 </html>
