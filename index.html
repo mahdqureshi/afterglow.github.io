@@ -24,22 +24,37 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body class="temp-site">
-    <div class="temp-shell">
-      <main class="temp-main" aria-label="Download Afterglow">
+    <main aria-label="Afterglow">
+      <nav class="hero-tab" aria-label="Afterglow">
+        <a class="hero-tab-icon" href="/" aria-label="Afterglow home">
+          <img src="appicon.webp" alt="">
+        </a>
+        <a class="header-download hero-tab-download" href="https://apps.apple.com/us/app/afterglow-epub-reader/id6767642581" aria-label="Download Afterglow on the App Store">
+          <span aria-hidden="true"></span>
+          <span>Download free</span>
+        </a>
+      </nav>
+      <section class="temp-main" aria-label="Download Afterglow">
         <div class="temp-app-lockup">
-          <div class="temp-icon-glow" aria-hidden="true"></div>
-          <img class="temp-app-icon" src="appicon.webp" alt="Afterglow app icon">
-          <h2 class="temp-headline">Your books, in their own light.</h2>
-          <a class="header-download temp-download" href="https://apps.apple.com/us/app/afterglow-epub-reader/id6767642581" aria-label="Download Afterglow on the App Store">
-            <span aria-hidden="true"></span>
-            <span>Download free</span>
-          </a>
+          <h1 class="temp-headline">Your books, in their own light.</h1>
         </div>
-      </main>
+      </section>
 
-      <footer class="site-footer temp-footer">
-        <a href="privacy.html">Privacy Policy</a>
-      </footer>
-    </div>
+      <section class="reader-showcase" aria-label="Reading themes" data-reader-showcase>
+        <div class="showcase-visual">
+          <div class="device-aura" aria-hidden="true"></div>
+
+          <div class="reader-device" data-reader-device></div>
+          <div class="book-rail" aria-hidden="true" data-book-rail></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer temp-footer">
+      <span>Afterglow for iPhone</span>
+      <a href="privacy.html">Privacy Policy</a>
+    </footer>
+    <script src="books/catalog.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>
