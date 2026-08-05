@@ -114,7 +114,7 @@ a {
   border-radius: 999px;
   color: #211d1a;
   font-size: 0.96rem;
-  font-weight: 400;
+  font-weight: 500;
   background: #fff;
   box-shadow: 0 10px 22px rgb(33 29 26 / 14%);
 }
@@ -517,6 +517,15 @@ h1 {
   text-align: center;
 }
 
+.temp-subtitle {
+  max-width: 45ch;
+  margin: 22px 0 0;
+  color: rgb(255 255 255 / 64%);
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.5;
+  text-align: center;
+}
+
 .temp-download {
   min-height: 44px;
   padding: 0 19px;
@@ -560,12 +569,12 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(420px, 50vw, 820px);
-  aspect-ratio: .9;
+  width: clamp(560px, 64vw, 1040px);
+  aspect-ratio: 1;
   border-radius: 48%;
-  background: color-mix(in oklch, var(--theme-glow) 36%, transparent);
-  filter: blur(132px);
-  opacity: .58;
+  background: radial-gradient(ellipse at center, var(--theme-glow) 0%, transparent 70%);
+  filter: none;
+  opacity: .24;
   transform: translate(-50%, -50%);
   transition: background-color 900ms ease;
   will-change: background-color;
@@ -847,6 +856,12 @@ h1 {
 
   .temp-headline {
     font-size: clamp(2.6rem, 12vw, 3.65rem);
+  }
+
+  .temp-subtitle {
+    max-width: 34ch;
+    margin-top: 18px;
+    font-size: 1rem;
   }
 
   .reader-showcase { margin-top: -340px; }

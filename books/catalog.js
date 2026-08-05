@@ -15,7 +15,7 @@ window.AfterglowBooks = [
     title: "Tao Te Ching",
     screen: "books/tao-te-ching/reader.png",
     cover: "books/tao-te-ching/cover.jpg",
-    glow: "oklch(0.70 0.17 57)"
+    glow: "oklch(0.6713 0.0879 219.74)"
   },
   {
     id: "use-of-weapons",
@@ -30,5 +30,12 @@ window.AfterglowBooks = [
     screen: "books/jobs/reader.png",
     cover: "books/jobs/cover.jpg",
     glow: "oklch(0.97 0.015 85)"
+  },
+  {
+    id: "homer",
+    title: "homer",
+    screen: "books/homer/reader.png",
+    cover: "books/homer/cover.webp",
+    glow: "oklch(0.9182 0.0523 226)"
   }
 ];
