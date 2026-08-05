@@ -522,11 +522,12 @@ h1 {
 }
 
 .temp-subtitle {
-  max-width: 50ch;
+  max-width: 60ch;
   margin: 22px 0 0;
   color: rgb(255 255 255 / 64%);
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.5;
+  letter-spacing: .19px;
   text-align: center;
   text-wrap: balance;
 }
@@ -871,10 +872,11 @@ h1 {
   }
 
   .temp-subtitle {
-    max-width: 40ch;
+    max-width: 60ch;
     margin-top: 20px;
     font-size: clamp(.96rem, 4.1vw, 1.05rem);
     line-height: 1.48;
+    letter-spacing: .19px;
   }
 
   .reader-showcase { margin-top: clamp(48px, 14vw, 68px); }
