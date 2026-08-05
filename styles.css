@@ -32,6 +32,7 @@
 
 html {
   min-width: 320px;
+  overflow-x: clip;
   background: #000;
 }
 
@@ -446,6 +447,7 @@ h1 {
   --theme-glow: #b3c2a6;
   --site-muted: rgb(251 247 239 / 62%);
   min-height: 100vh;
+  overflow-x: clip;
   color: var(--site-ink);
   background: #000;
 }
@@ -454,12 +456,13 @@ h1 {
   display: grid;
   position: relative;
   min-height: 100svh;
-  overflow: hidden;
+  overflow: visible;
   place-items: start center;
 }
 
 .temp-app-lockup {
   position: relative;
+  z-index: 5;
   display: grid;
   justify-items: center;
   padding: clamp(164px, 21.5vh, 218px) 24px 0;
@@ -498,8 +501,8 @@ h1 {
 
 .hero-tab-icon img {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 23%;
 }
 
@@ -515,15 +518,17 @@ h1 {
   font-size: 80px;
   line-height: 1;
   text-align: center;
+  text-wrap: balance;
 }
 
 .temp-subtitle {
-  max-width: 45ch;
+  max-width: 50ch;
   margin: 22px 0 0;
   color: rgb(255 255 255 / 64%);
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.5;
   text-align: center;
+  text-wrap: balance;
 }
 
 .temp-download {
@@ -745,13 +750,17 @@ h1 {
 
   .reader-showcase {
     min-height: auto;
-    margin-top: -240px;
+    margin-top: clamp(56px, 8vw, 84px);
+  }
+
+  .temp-main {
+    min-height: auto;
   }
 
   .showcase-visual {
     position: relative;
     inset: auto;
-    min-height: 760px;
+    min-height: clamp(680px, 90svh, 760px);
   }
 
   .reader-device { width: clamp(236px, 44vw, 320px); }
@@ -851,22 +860,26 @@ h1 {
   }
 
   .temp-app-lockup {
-    padding-top: 148px;
+    padding: clamp(132px, 18svh, 152px) 20px 0;
   }
 
   .temp-headline {
-    font-size: clamp(2.6rem, 12vw, 3.65rem);
+    max-width: 10ch;
+    font-size: clamp(2.7rem, 13.25vw, 3.65rem);
+    line-height: .96;
+    letter-spacing: -.025em;
   }
 
   .temp-subtitle {
-    max-width: 34ch;
-    margin-top: 18px;
-    font-size: 1rem;
+    max-width: 40ch;
+    margin-top: 20px;
+    font-size: clamp(.96rem, 4.1vw, 1.05rem);
+    line-height: 1.48;
   }
 
-  .reader-showcase { margin-top: -340px; }
-  .showcase-visual { min-height: 690px; padding: 18px 8px 64px; }
+  .reader-showcase { margin-top: clamp(48px, 14vw, 68px); }
+  .showcase-visual { min-height: clamp(600px, 79svh, 680px); padding: 18px 8px 64px; }
   .reader-device { width: clamp(210px, 63vw, 270px); transform: translate(-50%, -50%) rotateY(-4deg); }
-  .book-rail { left: calc(50% + clamp(96px, 29vw, 120px)); width: clamp(68px, 22vw, 90px); }
+  .book-rail { left: calc(50% + clamp(86px, 27vw, 112px)); width: clamp(68px, 22vw, 90px); }
   .temp-footer { width: calc(100% - 32px); }
 }

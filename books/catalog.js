@@ -7,7 +7,7 @@ window.AfterglowBooks = [
     id: "the-creative-act",
     title: "The Creative Act: A Way of Being",
     screen: "books/the-creative-act/reader.png",
-    cover: "books/the-creative-act/cover.png",
+    cover: "books/the-creative-act/cover.webp",
     glow: "oklch(0.79 0.018 120)"
   },
   {
