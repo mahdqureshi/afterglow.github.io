@@ -511,6 +511,11 @@ h1 {
   padding: 0 17px;
 }
 
+.hero-tab-download > span[aria-hidden="true"] {
+  font-size: 1.14em;
+  line-height: 1;
+}
+
 .temp-headline {
   max-width: 11ch;
   margin: 0;
@@ -597,7 +602,7 @@ h1 {
   border: 0;
   background: transparent;
   box-shadow: none;
-  transform: translate(-50%, -50%) rotateY(-10deg) rotateX(1deg) translateZ(0);
+  transform: translate(-50%, -50%) rotateY(-12deg) translateZ(0);
   transform-style: preserve-3d;
   transition: transform 700ms cubic-bezier(.22, 1, .36, 1);
 }
@@ -858,6 +863,8 @@ h1 {
 
   .site-footer {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .temp-app-lockup {
@@ -880,8 +887,15 @@ h1 {
   }
 
   .reader-showcase { margin-top: clamp(48px, 14vw, 68px); }
-  .showcase-visual { min-height: clamp(600px, 79svh, 680px); padding: 18px 8px 64px; }
-  .reader-device { width: clamp(210px, 63vw, 270px); transform: translate(-50%, -50%) rotateY(-4deg); }
+  .showcase-visual {
+    --mobile-composition-shift: clamp(-34px, -8vw, -26px);
+    min-height: clamp(600px, 79svh, 680px);
+    padding: 18px 8px 64px;
+  }
+  .device-aura,
+  .reader-device,
+  .book-rail { margin-left: var(--mobile-composition-shift); }
+  .reader-device { width: clamp(210px, 63vw, 270px); transform: translate(-50%, -50%); }
   .book-rail { left: calc(50% + clamp(86px, 27vw, 112px)); width: clamp(68px, 22vw, 90px); }
   .temp-footer { width: calc(100% - 32px); }
 }
