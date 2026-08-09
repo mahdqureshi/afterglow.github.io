@@ -4,22 +4,31 @@ const books = window.AfterglowBooks || [];
 if (showcase && books.length) {
   const readerDevice = showcase.querySelector("[data-reader-device]");
   const bookRail = showcase.querySelector("[data-book-rail]");
+  const themeOptions = [...showcase.querySelectorAll("[data-reader-theme]")];
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  const readerImages = books.map((book, index) => {
-    const image = document.createElement("img");
-    image.className = "reader-image";
-    image.dataset.src = book.screen;
-    image.alt = `${book.title} reading view`;
-    image.width = 1074;
-    image.height = 2328;
-    image.decoding = "async";
-    image.loading = index === 0 ? "eager" : "lazy";
-    image.fetchPriority = index === 0 ? "high" : "low";
-    image.dataset.position = index === 0 ? "active" : "inactive";
-    image.setAttribute("aria-hidden", String(index !== 0));
-    readerDevice.append(image);
-    return image;
+  const readerFrames = books.map((book, index) => {
+    const frame = document.createElement("div");
+    frame.className = "reader-frame";
+    frame.dataset.position = index === 0 ? "active" : "inactive";
+    frame.setAttribute("aria-hidden", String(index !== 0));
+
+    ["light", "dark"].forEach((theme) => {
+      const image = document.createElement("img");
+      image.className = "reader-theme-image";
+      image.dataset.theme = theme;
+      image.dataset.src = book.screens[theme];
+      image.alt = theme === "light" ? `${book.title} reading view` : "";
+      image.width = 1074;
+      image.height = 2328;
+      image.decoding = "async";
+      image.loading = index === 0 ? "eager" : "lazy";
+      image.fetchPriority = index === 0 && theme === "light" ? "high" : "low";
+      frame.append(image);
+    });
+
+    readerDevice.append(frame);
+    return frame;
   });
 
   const coverArtworks = [];
@@ -40,25 +49,44 @@ if (showcase && books.length) {
   let cycleTimer;
   let exitTimer;
   let isVisible = false;
+  let readerTheme = "light";
 
   function hydrateBook(index) {
-    const readerImage = readerImages[index];
+    const readerFrame = readerFrames[index];
     const coverArtwork = coverArtworks[index];
 
-    if (!readerImage.src) readerImage.src = readerImage.dataset.src;
+    readerFrame.querySelectorAll("[data-src]").forEach((image) => {
+      if (!image.src) image.src = image.dataset.src;
+    });
     if (!coverArtwork.style.getPropertyValue("--cover-image")) {
       coverArtwork.style.setProperty("--cover-image", coverArtwork.dataset.coverImage);
     }
   }
 
   function positionReader(index, previousIndex, animate) {
-    readerImages.forEach((element, elementIndex) => {
+    readerFrames.forEach((element, elementIndex) => {
       element.dataset.position = elementIndex === index ? "active" : "inactive";
       element.setAttribute("aria-hidden", String(elementIndex !== index));
     });
 
     if (animate && previousIndex !== index) {
-      readerImages[previousIndex].dataset.position = "exiting";
+      readerFrames[previousIndex].dataset.position = "exiting";
+    }
+  }
+
+  function setReaderTheme(theme) {
+    if (theme !== "light" && theme !== "dark") return;
+
+    readerTheme = theme;
+    showcase.dataset.readerTheme = readerTheme;
+    themeOptions.forEach((option) => {
+      option.setAttribute("aria-pressed", String(option.dataset.readerTheme === readerTheme));
+    });
+
+    try {
+      window.localStorage.setItem("afterglow-reader-theme", readerTheme);
+    } catch (_) {
+      // The switch still works when storage is unavailable (for example, private browsing).
     }
   }
 
@@ -95,7 +123,7 @@ if (showcase && books.length) {
     positionCovers(index, previousIndex, shouldAnimate);
 
     exitTimer = window.setTimeout(() => {
-      [...readerImages, ...covers].forEach((element) => {
+      [...readerFrames, ...covers].forEach((element) => {
         if (element.dataset.position === "exiting") element.dataset.position = "inactive";
       });
     }, 900);
@@ -114,11 +142,22 @@ if (showcase && books.length) {
 
   reducedMotion.addEventListener("change", startCycle);
 
+  themeOptions.forEach((option) => {
+    option.addEventListener("click", () => setReaderTheme(option.dataset.readerTheme));
+  });
+
   new IntersectionObserver(([entry]) => {
     isVisible = entry.isIntersecting;
     if (isVisible) startCycle();
     else stopCycle();
   }, { threshold: 0.2 }).observe(showcase);
 
+  try {
+    readerTheme = window.localStorage.getItem("afterglow-reader-theme") || readerTheme;
+  } catch (_) {
+    // Use the light reader when storage is unavailable.
+  }
+
+  setReaderTheme(readerTheme);
   showSlide(0, false);
 }
