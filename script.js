@@ -4,7 +4,7 @@ const books = window.AfterglowBooks || [];
 if (showcase && books.length) {
   const readerDevice = showcase.querySelector("[data-reader-device]");
   const bookRail = showcase.querySelector("[data-book-rail]");
-  const themeOptions = [...showcase.querySelectorAll("[data-reader-theme]")];
+  const themeToggle = showcase.querySelector("[data-reader-theme-toggle]");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const readerFrames = books.map((book, index) => {
@@ -79,9 +79,7 @@ if (showcase && books.length) {
 
     readerTheme = theme;
     showcase.dataset.readerTheme = readerTheme;
-    themeOptions.forEach((option) => {
-      option.setAttribute("aria-pressed", String(option.dataset.readerTheme === readerTheme));
-    });
+    themeToggle.setAttribute("aria-label", `Switch to ${readerTheme === "light" ? "dark" : "light"} reader`);
 
     try {
       window.localStorage.setItem("afterglow-reader-theme", readerTheme);
@@ -142,8 +140,8 @@ if (showcase && books.length) {
 
   reducedMotion.addEventListener("change", startCycle);
 
-  themeOptions.forEach((option) => {
-    option.addEventListener("click", () => setReaderTheme(option.dataset.readerTheme));
+  themeToggle.addEventListener("click", () => {
+    setReaderTheme(readerTheme === "light" ? "dark" : "light");
   });
 
   new IntersectionObserver(([entry]) => {

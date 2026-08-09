@@ -49,20 +49,20 @@
           <div class="reader-device" data-reader-device></div>
           <div class="book-rail" aria-hidden="true" data-book-rail></div>
 
-          <div class="reader-theme-toggle" role="group" aria-label="Reader appearance">
+          <button class="reader-theme-toggle" type="button" data-reader-theme-toggle aria-label="Switch to dark reader">
             <span class="reader-theme-thumb" aria-hidden="true"></span>
-            <button class="reader-theme-option" type="button" data-reader-theme="light" aria-label="Use light reader" aria-pressed="true">
+            <span class="reader-theme-option" data-reader-theme="light" aria-hidden="true">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="12" cy="12" r="3.5"></circle>
                 <path d="M12 2.5v2M12 19.5v2M4.4 4.4l1.4 1.4M18.2 18.2l1.4 1.4M2.5 12h2M19.5 12h2M4.4 19.6l1.4-1.4M18.2 5.8l1.4-1.4"></path>
               </svg>
-            </button>
-            <button class="reader-theme-option" type="button" data-reader-theme="dark" aria-label="Use dark reader" aria-pressed="false">
+            </span>
+            <span class="reader-theme-option" data-reader-theme="dark" aria-hidden="true">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8a8.5 8.5 0 1 0 11.3 11.3Z"></path>
               </svg>
-            </button>
-          </div>
+            </span>
+          </button>
         </div>
       </section>
     </main>
