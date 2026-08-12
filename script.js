@@ -1,5 +1,26 @@
 const showcase = document.querySelector("[data-reader-showcase]");
 const books = window.AfterglowBooks || [];
+const downloadShell = document.querySelector(".hero-tab-download-shell");
+
+if (downloadShell && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  let cursorTimer;
+
+  const restoreDownloadCursor = () => {
+    window.clearTimeout(cursorTimer);
+    downloadShell.classList.remove("is-cursor-hidden");
+  };
+
+  const scheduleDownloadCursorHide = () => {
+    restoreDownloadCursor();
+    cursorTimer = window.setTimeout(() => {
+      downloadShell.classList.add("is-cursor-hidden");
+    }, 2000);
+  };
+
+  downloadShell.addEventListener("mouseenter", scheduleDownloadCursorHide);
+  downloadShell.addEventListener("mousemove", scheduleDownloadCursorHide);
+  downloadShell.addEventListener("mouseleave", restoreDownloadCursor);
+}
 
 if (showcase && books.length) {
   const readerDevice = showcase.querySelector("[data-reader-device]");

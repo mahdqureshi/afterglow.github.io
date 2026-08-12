@@ -507,13 +507,112 @@ h1 {
 }
 
 .hero-tab-download {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  justify-content: center;
+  width: 154px;
+  height: 42px;
   min-height: 42px;
-  padding: 0 17px;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 21px;
+  transform-origin: top right;
+  transition:
+    width 520ms cubic-bezier(.2, .9, .25, 1),
+    height 520ms cubic-bezier(.2, .9, .25, 1),
+    border-radius 520ms cubic-bezier(.2, .9, .25, 1),
+    box-shadow 520ms cubic-bezier(.2, .9, .25, 1);
+  will-change: width, height;
 }
 
-.hero-tab-download > span[aria-hidden="true"] {
+.hero-tab-download-shell {
+  position: relative;
+  display: block;
+  flex: 0 0 154px;
+  width: 154px;
+  height: 42px;
+}
+
+.hero-tab-download-shell.is-cursor-hidden,
+.hero-tab-download-shell.is-cursor-hidden * {
+  cursor: none;
+}
+
+.hero-tab-download-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  white-space: nowrap;
+  transition:
+    opacity 180ms ease,
+    transform 300ms cubic-bezier(.2, .9, .25, 1);
+}
+
+.hero-tab-download-label > span:first-child {
   font-size: 1.14em;
   line-height: 1;
+}
+
+.hero-tab-download:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.hero-tab-qr {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  width: 180px;
+  color: #211d1a;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  opacity: 0;
+  transform: translate(-50%, 12px) scale(.84);
+  transition:
+    opacity 180ms ease,
+    transform 420ms cubic-bezier(.2, .9, .25, 1);
+}
+
+.hero-tab-qr img {
+  display: block;
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  image-rendering: pixelated;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-tab-download-shell:hover .hero-tab-download,
+  .hero-tab-download:focus-visible {
+    width: 200px;
+    height: 222px;
+    border-radius: 22px;
+    box-shadow:
+      0 24px 52px rgb(0 0 0 / 28%),
+      inset 0 1px 0 rgb(255 255 255 / 82%);
+  }
+
+  .hero-tab-download-shell:hover .hero-tab-download-label,
+  .hero-tab-download:focus-visible .hero-tab-download-label {
+    opacity: 0;
+    transform: translateY(-12px) scale(.92);
+  }
+
+  .hero-tab-download-shell:hover .hero-tab-qr,
+  .hero-tab-download:focus-visible .hero-tab-qr {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+    transition-delay: 100ms;
+  }
 }
 
 .temp-headline {
